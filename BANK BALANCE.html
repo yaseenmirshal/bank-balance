@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="bank.css">
+    <title>BANK ACCOUNT</title>
+    
+</head>
+<body>
+    <div class="div1">&nbsp;&nbsp;&nbsp;
+    <h1>BANK BALANCE CHECKER</h1>
+    <h2 id="balance-display">BALANCE: ₹0</h2>
+    <form>
+        <label for="deposit-input">Deposit Amount: </label>&nbsp;&nbsp;&nbsp;
+        <input type="number" id="deposite-input" class="transaction-input">&nbsp;&nbsp;&nbsp;
+        <button type="button" onclick="deposit()">Deposit</button>
+        <br>
+        <label for="withdraw-input">Withdraw Amount: </label>
+        <input type="number" id="withdraw-input" class="transaction-input">&nbsp;&nbsp;&nbsp;
+        <button type="button" onclick="withdraw()">Withdraw</button>
+        <br>
+        <br>
+    </form>
+</div>
+<script>
+    let balance = 0;
+    document.getElementById("deposite-input")
+
+    function deposit() {
+        updateBalance('deposite-input');
+        alert("Successfully Deposited")
+    }
+
+    function withdraw() {
+        const withdrawalInput = document.getElementById('withdraw-input');
+        alert("withdraw amount is :"+withdrawalInput.value)
+        const withdrawalAmount = parseFloat(withdrawalInput.value);
+        if (withdrawalAmount <= 0) {
+            alert("Please enter a valid positive withdrawal amount");
+            return;
+        }
+        if (withdrawalAmount > balance) {
+            alert("Insufficient balance. Please enter a valid withdrawal amount.");
+            return;
+        }
+        updateBalance('withdraw-input', true);
+    }
+    function updateBalance(deposite, withdraw) {
+        const transactionInput = document.getElementById(deposite);
+        const amount = parseFloat(transactionInput.value);
+
+        if (amount <= 0) {
+            alert("Please enter a valid positive amount.");
+            return;
+        }
+
+        balance = withdraw ? balance - amount : balance + amount;
+
+        const balanceDisplay = document.getElementById('balance-display');
+        balanceDisplay.textContent = `BALANCE: ₹${balance.toFixed(2)}`;
+        transactionInput.value = '';
+    }
+
+    function showBalance() {
+        (`Current BALANCE: ₹${balance.toFixed(1)}`);
+    }
+</script>
+</body>
+</html>
+
